@@ -26,35 +26,40 @@
                 
               </div>
               <div class="modal-body">
-              	<form action="#">
+              	<form action="{{url('detail-barang/save')}}" method="POST">
                  <div class="form-group">
+                  @csrf
                   <label>Nomor Nota</label>
-                  <input type="number" class="form-control" placeholder="Nomor Nota ....">
+                 <select class="form-control" name="no_nota">
+                  <?php 
+                    $masuk = \App\tblbrgmasuk::all();
+                  ?>
+                  @foreach($masuk  as $m)
+                    <option>{{$m->no_nota}}</option>
+                    @endforeach
+                  </select>
                 </div>
 
  <div class="form-group">
-                  <label>Tanggal Masuk</label>
-                  <input type="date" class="form-control" placeholder="">
-                </div>	                
-                 <div class="form-group">
-                  <label>ID Petugas</label>
-                  <select class="form-control">
-                  	<option>1</option>
-                  	<option>2</option>
-                  </select>
-                </div>
-                 <div class="form-group">
-                  <label>ID Distributor</label>
-                  <select class="form-control">
-                  	<option>1</option>
-                  	<option>1</option>
-                  </select>
-                </div>
-                 <div class="form-group">
-                  <label>Total</label>
-                  <input type="number" class="form-control" placeholder="Total ....">
-                </div>
-
+                  <label>Kode Barang</label>
+                  <select class="form-control" name="kode_barang">
+                      <?php 
+                        $barang = \App\tblbarang::all();
+                      ?>
+                      @foreach($barang as $b)
+                        <option>{{$b->kode_barang}}</option>
+                        @endforeach
+                    </select>
+                </div>	 
+                <div class="form-group">
+                  <label>Jumlah</label>
+                  <input type="number" class="form-control" name="jumlah">
+                </div>   
+                <div class="form-group">
+                  <label>Subtotal</label>
+                  <input type="number" class="form-control" name="sub_total">
+                </div>                  
+               
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -66,7 +71,36 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-        <div class="modal fade" id="modal-edit">
+      
+    </center>
+    <br>
+<table id="example" class="ui celled table" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nomor Nota</th>
+                <th>Kode Barang</th>
+                <th>Jumlah</th>
+                <th>Sub Total</th>
+               
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <?php
+                $detail = \App\tbldetailbrgmasuk::all();
+              ?>
+              @foreach($detail as $d)
+            	<td>{{$d->no_nota}}</td>
+                <td>{{$d->kode_barang}}</td>
+                <td>{{$d->jumlah}}</td>
+                <td>{{$d->sub_total}}</td>
+              
+                   <td><a href="{{url('detail-barang/delete/'.$d->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
+                		<a href="#modal-edit{{$d->id}}" data-target="#modal-edit{{$d->id}}" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+                <div class="modal fade" id="modal-edit{{$d->id}}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -75,39 +109,44 @@
                 
               </div>
               <div class="modal-body">
-              	<form action="#">
+                <form action="{{url('detail-barang/update/'.$d->id)}}" method="POST">
                  <div class="form-group">
                   <label>Nomor Nota</label>
-                  <input type="number" class="form-control" placeholder="Nomor Nota ....">
+                 <select class="form-control" name="no_nota">
+                  <?php 
+                    $masuk = \App\tblbrgmasuk::all();
+                  ?>
+                  @foreach($masuk  as $m)
+                    <option>{{$m->no_nota}}</option>
+                    @endforeach
+                  </select>
                 </div>
 
  <div class="form-group">
-                  <label>Tanggal Masuk</label>
-                  <input type="date" class="form-control" placeholder="">
-                </div>	                
-                 <div class="form-group">
-                  <label>ID Petugas</label>
-                  <select class="form-control">
-                  	<option>1</option>
-                  	<option>2</option>
-                  </select>
-                </div>
-                 <div class="form-group">
-                  <label>ID Distributor</label>
-                  <select class="form-control">
-                  	<option>1</option>
-                  	<option>1</option>
-                  </select>
-                </div>
-                 <div class="form-group">
-                  <label>Total</label>
-                  <input type="number" class="form-control" placeholder="Total ....">
-                </div>
-
+                  <label>Kode Barang</label>
+                  <select class="form-control" name="kode_barang">
+                      <?php 
+                        $barang = \App\tblbarang::all();
+                      ?>
+                      @foreach($barang as $b)
+                        <option>{{$b->kode_barang}}</option>
+                        @endforeach
+                    </select>
+                </div>   
+                <div class="form-group">
+                  <label>Jumlah</label>
+                  <input type="number" class="form-control" name="jumlah" value="{{$d->jumlah}}">
+                </div>   
+                <div class="form-group">
+                  <label>Subtotal</label>
+                  <input type="number" class="form-control" name="sub_total" value="{{$d->sub_total}}">
+                </div>                  
+               
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Edit</button>
+                @csrf
+                <button type="submit" class="btn btn-primary">Update</button>
                 </form>
               </div>
             </div>
@@ -115,91 +154,7 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-    </center>
-    <br>
-<table id="example" class="ui celled table" style="width:100%">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th colspan="2">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td><a href="" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
-                		<a href="#modal-edit" data-target="#modal-edit" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-            <tr>
-            	<td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                   <td><a href="" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
-                		<a href="#modal-edit" data-target="#modal-edit" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-               <tr>
-            	<td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                  <td><a href="" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
-                		<a href="#modal-edit" data-target="#modal-edit" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-               <tr>
-            	<td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                  <td><a href="" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
-                	<a href="#modal-edit" data-target="#modal-edit" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-               <tr>
-            	<td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                  <td><a href="" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
-                		<a href="#modal-edit" data-target="#modal-edit" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-               <tr>
-            	<td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                   <td><a href="" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
-                		<a href="#modal-edit" data-target="#modal-edit" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-               <tr>
-            	<td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                   <td><a href="" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
-                		<a href="#modal-edit" data-target="#modal-edit" data-toggle="modal" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-           
+        @endforeach
         </tbody>
     </table>
           @endsection

@@ -32,14 +32,29 @@
                   <label>Kode Barang</label>
                   <input type="number" class="form-control" placeholder="" name="kode_barang" required="">
                 </div>
+                <?php
+                  $jenis = \App\tbljenis::all();
+
+                ?>
+              
                 <div class="form-group">
                   <label>Nama Barang</label>
                   <input type="text" class="form-control" placeholder="" name="nama_barang" required="">
                 </div>
+                  <div class="form-group">  
+                    <label>Kode jenis</label>
+                    <select class="form-control" name="kode_jenis">
+                      @foreach($jenis as $j)
+                        <option>{{$j->kode_jenis}}</option>
+                        @endforeach
+                      </select>
+                      
+                </div>  
                 <div class="form-group">
                   <label>Harga Net</label>
                   <input type="number" class="form-control" placeholder="" name="harga_net" required="">
                 </div>
+
                 <div class="form-group">
                   <label>Harga Jual</label>
                   <input type="number" class="form-control" placeholder="" name="harga_jual" required="">
@@ -69,6 +84,7 @@
             <tr>
                 <th>Kode Barang</th>
                 <th>Nama Barang</th>
+                <th>Kode Jenis</th>
                 <th>Harga Net</th>
                 <th>Harga Jual</th>
                 <th>Stok</th>
@@ -86,6 +102,7 @@
 
                 <td>{{$key->kode_barang}}</td>
                 <td>{{$key->nama_barang}}</td>
+                <td>{{$key->kode_jenis}}</td>
                 <td>{{$key->harga_net}}</td>
                 <td>{{$key->harga_jual}}</td>
                 <td>{{$key->stok}}</td>
@@ -112,6 +129,19 @@
                   <label>Nama Barang</label>
                   <input type="text" class="form-control" value="{{$key->nama_barang}}"  name="nama_barang">
                 </div>
+                 <?php
+                  $jenis = \App\tbljenis::all();
+
+                ?>
+                <div class="form-group">  
+                    <label>Kode jenis</label>
+                    <select class="form-control" name="kode_jenis">
+                      @foreach($jenis as $j)
+                        <option>{{$j->kode_jenis}}</option>
+                        @endforeach
+                      </select>
+                      
+                </div>  
                 <div class="form-group">
                   <label>Harga Net</label>
                   <input type="number" class="form-control" value="{{$key->harga_net}}"  name="harga_net">

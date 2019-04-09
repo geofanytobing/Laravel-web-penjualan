@@ -23,4 +23,22 @@ class BarangMasukController extends Controller
  	return redirect('barang-masuk');
 
  }
+
+ public function update(Request $r,$id){
+ 	$bm = tblbrgmasuk::find($id);
+ 	$bm->no_nota = $r->no_nota;
+ 	$bm->tgl_masuk = $r->tgl_masuk;
+ 	$bm->id_distributor = $r->id_distributor;
+ 	$bm->id_petugas = $r->id_petugas;
+ 	$bm->total = $r->total;
+ 	$bm->save();
+
+ 	return redirect('barang-masuk');
+ }
+
+ public function delete($id){
+ 	$bm = tblbrgmasuk::find($id);
+ 	$bm->delete();
+ 	return redirect('barang-masuk');
+ }
 }

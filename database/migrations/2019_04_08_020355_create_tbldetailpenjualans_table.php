@@ -18,7 +18,7 @@ class CreateTbldetailpenjualansTable extends Migration
             $table->integer('no_faktur');
             $table->integer('kode_barang')->unsigned();
             $table->integer('jumlah');
-            $table->integer('subtotal');
+            $table->integer('sub_total');
             $table->timestamps();
         });
     }

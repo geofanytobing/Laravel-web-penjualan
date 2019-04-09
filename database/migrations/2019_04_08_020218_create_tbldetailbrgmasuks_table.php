@@ -17,6 +17,8 @@ class CreateTbldetailbrgmasuksTable extends Migration
             $table->bigIncrements('id');
             $table->integer('no_nota')->unsigned();
             $table->integer('kode_barang')->unsigned();
+            $table->integer('jumlah');
+            $table->integer('sub_total');
             $table->timestamps();
         });
     }

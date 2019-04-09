@@ -262,7 +262,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{asset('lte/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -295,7 +295,13 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a class="btn btn-default btn-flat" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                 </div>
               </li>
             </ul>
@@ -318,7 +324,7 @@
           <img src="{{asset('lte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ Auth::user()->name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -336,6 +342,7 @@
           <ul class="treeview-menu">
             <li><a href="{{url('barang_masuk')}}"><i class="fa fa-circle-o"></i>Barang Masuk</a></li>
             <li><a href="{{url('barang')}}"><i class="fa fa-circle-o"></i>Barang</a></li>
+            <li><a href="{{url('jenis')}}"><i class="fa fa-circle-o"></i>Jenis</a></li>
             <li><a href="{{url('detail-barang')}}"><i class="fa fa-circle-o"></i>Detail Barang Masuk</a></li>
           
           </ul>
@@ -350,6 +357,7 @@
           <ul class="treeview-menu">
             <li><a href="{{url('/petugas')}}"><i class="fa fa-circle-o"></i>Petugas</a></li>
             <li><a href="{{url('/penjualan')}}"><i class="fa fa-circle-o"></i>Penjualan</a></li>
+            <li><a href="{{url('/detail-penjualan')}}"><i class="fa fa-circle-o"></i>Detail Penjualan</a></li>
             <li><a href="{{url('/distributor')}}"><i class="fa fa-circle-o"></i>Distributor</a></li>
            
           </ul>
